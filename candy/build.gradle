@@ -1,0 +1,42 @@
+apply plugin: 'kotlin'
+apply plugin: 'groovy'
+apply plugin: 'maven'
+
+sourceSets {
+    main {
+        groovy {
+            srcDir 'src/main/groovy'
+        }
+        java {
+            srcDir 'src/main/java'
+        }
+        resources {
+            srcDir 'src/main/resources'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation gradleApi() //必须
+    implementation localGroovy() //必须
+    //如果要使用android的API，需要引用这个，实现Transform的时候会用到
+    implementation 'com.android.tools.build:gradle:3.6.4'
+
+    implementation 'com.android.tools.build:gradle-api:3.6.4'
+
+    //ASM依赖
+    implementation 'org.ow2.asm:asm:8.0'
+    implementation 'org.ow2.asm:asm-util:8.0'
+    implementation 'org.ow2.asm:asm-commons:8.0'
+}
+
+uploadArchives {
+    repositories.mavenDeployer {
+        pom.version = '1.0.0'
+        pom.artifactId = 'candy'
+        pom.groupId = 'com.tinyws.plugins'
+        repository(url: "file:///Users/tiny/workspace/AsmDemo/repo")
+    }
+}

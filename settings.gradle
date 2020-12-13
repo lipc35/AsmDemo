@@ -1,0 +1,4 @@
+rootProject.name='AsmDemo'
+include ':app'
+include ':candy'
+include ':lollipops'
